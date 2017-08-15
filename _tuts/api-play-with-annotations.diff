@@ -1,0 +1,27 @@
+diff --git a/src/AppBundle/Model/Product.php b/src/AppBundle/Model/Product.php
+index e037221..8f18ae0 100644
+--- a/src/AppBundle/Model/Product.php
++++ b/src/AppBundle/Model/Product.php
+@@ -2,6 +2,8 @@
+ 
+ namespace AppBundle\Model;
+ 
++use JMS\Serializer\Annotation as Serializer;
++
+ class Product
+ {
+     private $id;
+@@ -51,4 +53,13 @@ class Product
+     {
+         $this->description = $description;
+     }
++
++    /**
++     * @Serializer\VirtualProperty()
++     * @Serializer\SerializedName("isLoud")
++     */
++    public function isLoud()
++    {
++        return $this->name == 'Trombone';
++    }
+ }

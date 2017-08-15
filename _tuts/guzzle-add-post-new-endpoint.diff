@@ -1,0 +1,95 @@
+diff --git a/play.php b/play.php
+index 9d53dde..1ab551b 100644
+--- a/play.php
++++ b/play.php
+@@ -11,4 +11,13 @@ $client = new Client([
+ $response = $client->get('/api/products');
+ 
+ dump((string) $response->getBody());
+-dump($response->getStatusCode());
+\ No newline at end of file
++dump($response->getStatusCode());
++
++$data = [
++    'name' => 'New product '.rand(),
++    'price' => rand(10, 100),
++    'description' => 'Lorem Ipsum',
++];
++$response = $client->post('/api/products', [
++    'body' => json_encode($data)
++]);
+\ No newline at end of file
+diff --git a/src/AppBundle/Controller/ProductApiController.php b/src/AppBundle/Controller/ProductApiController.php
+index 0b8f137..d005c12 100644
+--- a/src/AppBundle/Controller/ProductApiController.php
++++ b/src/AppBundle/Controller/ProductApiController.php
+@@ -2,15 +2,19 @@
+ 
+ namespace AppBundle\Controller;
+ 
++use AppBundle\Model\Product;
+ use AppBundle\Service\ProductRepository;
++use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
++use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
+ 
+ class ProductApiController extends Controller
+ {
+     /**
+      * @Route("/api/products", name="api_product_list")
++     * @Method("GET")
+      */
+     public function listAction()
+     {
+@@ -22,4 +26,25 @@ class ProductApiController extends Controller
+ 
+         return new Response($json);
+     }
++
++    /**
++     * @Route("/api/products", name="api_product_create")
++     * @Method("POST")
++     */
++    public function createAction(Request $request)
++    {
++        $data = json_decode($request->getContent(), true);
++        $product = new Product();
++        $product->setName($data['name']);
++        $product->setPrice($data['price']);
++        $product->setDescription($data['description']);
++
++        $this->container->get('app.product_repository')
++            ->save($product);
++
++        $json = $this->container->get('jms_serializer')
++            ->serialize($product, 'json');
++
++        return new Response($json, 201);
++    }
+ }
+\ No newline at end of file
+diff --git a/src/AppBundle/Service/ProductRepository.php b/src/AppBundle/Service/ProductRepository.php
+index 0c27470..adc502e 100644
+--- a/src/AppBundle/Service/ProductRepository.php
++++ b/src/AppBundle/Service/ProductRepository.php
+@@ -50,6 +50,18 @@ class ProductRepository
+         return $this->hydrateProduct($row);
+     }
+ 
++    public function save(Product $product)
++    {
++        $stmt = $this->pdo->prepare('INSERT INTO product (name, price, description) VALUES (:name, :price, :description)');
++        $stmt->execute([
++            'name' => $product->getName(),
++            'price' => $product->getPrice(),
++            'description' => $product->getDescription(),
++        ]);
++
++        $product->setId($this->pdo->lastInsertId());
++    }
++
+     private function hydrateProduct(array $row)
+     {
+         $product = new Product();

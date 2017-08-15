@@ -74,7 +74,72 @@
             "id": "model-add-php-7-return-type",
             "name": "Model: Add php 7 return type",
             "description": null
+        },
+        {
+            "id": "api-simple-api-products-endpoint",
+            "name": "API: Simple \/api\/products endpoint",
+            "description": null
+        },
+        {
+            "id": "api-failed-encoding-of-products",
+            "name": "API: Failed encoding of products",
+            "description": null
+        },
+        {
+            "id": "api-install-jmsserializerbundle",
+            "name": "API: Install JMSSerializerBundle",
+            "description": null
+        },
+        {
+            "id": "api-play-with-annotations",
+            "name": "API: Play with annotations",
+            "description": null
+        },
+        {
+            "id": "di-log-from-controller",
+            "name": "DI: Log from controller",
+            "description": null
+        },
+        {
+            "id": "di-try-to-log-from-service",
+            "name": "DI: Try to log from service",
+            "description": null
+        },
+        {
+            "id": "di-di-logger-manually",
+            "name": "DI: DI logger manually",
+            "description": null
+        },
+        {
+            "id": "di-add-loggerinterface-type-hint",
+            "name": "DI: Add LoggerInterface type-hint",
+            "description": null
+        },
+        {
+            "id": "di-register-as-service",
+            "name": "DI: Register as service",
+            "description": null
+        },
+        {
+            "id": "di-register-pdo-service",
+            "name": "DI: Register PDO service",
+            "description": null
+        },
+        {
+            "id": "di-add-calls",
+            "name": "DI: Add calls",
+            "description": null
+        },
+        {
+            "id": "guzzle-install-and-create-test-script",
+            "name": "Guzzle: Install and create test script",
+            "description": null
+        },
+        {
+            "id": "guzzle-add-post-new-endpoint",
+            "name": "Guzzle: Add POST new endpoint",
+            "description": null
         }
     ],
-    "sha": "25b7a25c15807696f801ffa4110a451578007737"
+    "sha": "b6ab597d6cda3a57eeedcd6612862b469597e2e9"
 }

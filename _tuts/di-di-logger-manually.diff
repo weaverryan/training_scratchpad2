@@ -1,0 +1,46 @@
+diff --git a/src/AppBundle/Controller/ProductApiController.php b/src/AppBundle/Controller/ProductApiController.php
+index acc6dea..3402dcb 100644
+--- a/src/AppBundle/Controller/ProductApiController.php
++++ b/src/AppBundle/Controller/ProductApiController.php
+@@ -14,7 +14,9 @@ class ProductApiController extends Controller
+      */
+     public function listAction()
+     {
+-        $productRepo = new ProductRepository();
++        $productRepo = new ProductRepository(
++            $this->container->get('logger')
++        );
+         $products = $productRepo->findAll();
+ 
+         $json = $this->container->get('jms_serializer')
+diff --git a/src/AppBundle/Service/ProductRepository.php b/src/AppBundle/Service/ProductRepository.php
+index 7d21b8f..fdf1daf 100644
+--- a/src/AppBundle/Service/ProductRepository.php
++++ b/src/AppBundle/Service/ProductRepository.php
+@@ -3,9 +3,17 @@
+ namespace AppBundle\Service;
+ 
+ use AppBundle\Model\Product;
++use Psr\Log\LoggerInterface;
+ 
+ class ProductRepository
+ {
++    private $logger;
++
++    public function __construct($logger)
++    {
++        $this->logger = $logger;
++    }
++
+     public function findAll()
+     {
+         $pdo = $this->getPDO();
+@@ -16,7 +24,7 @@ class ProductRepository
+             $products[] = $this->hydrateProduct($row);
+         }
+ 
+-        $this->container->get('logger')
++        $this->logger
+             ->debug(sprintf('Found %d products', count($products)));
+ 
+         return $products;

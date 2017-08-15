@@ -1,0 +1,11 @@
+diff --git a/app/config/services.yml b/app/config/services.yml
+index 08aaa8d..8a1b494 100644
+--- a/app/config/services.yml
++++ b/app/config/services.yml
+@@ -13,3 +13,6 @@ services:
+         arguments:
+             - 'mysql:host=localhost;dbname=chicago_training'
+             - 'root'
++        calls:
++            # $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
++            - [ setAttribute, [3, 2] ]

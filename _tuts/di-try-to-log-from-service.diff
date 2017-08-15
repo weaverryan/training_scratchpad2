@@ -1,0 +1,28 @@
+diff --git a/src/AppBundle/Controller/ProductApiController.php b/src/AppBundle/Controller/ProductApiController.php
+index 62f97fc..acc6dea 100644
+--- a/src/AppBundle/Controller/ProductApiController.php
++++ b/src/AppBundle/Controller/ProductApiController.php
+@@ -17,9 +17,6 @@ class ProductApiController extends Controller
+         $productRepo = new ProductRepository();
+         $products = $productRepo->findAll();
+ 
+-        $this->container->get('logger')
+-            ->debug(sprintf('Found %d products', count($products)));
+-
+         $json = $this->container->get('jms_serializer')
+             ->serialize($products, 'json');
+ 
+diff --git a/src/AppBundle/Service/ProductRepository.php b/src/AppBundle/Service/ProductRepository.php
+index 8eb0122..7d21b8f 100644
+--- a/src/AppBundle/Service/ProductRepository.php
++++ b/src/AppBundle/Service/ProductRepository.php
+@@ -16,6 +16,9 @@ class ProductRepository
+             $products[] = $this->hydrateProduct($row);
+         }
+ 
++        $this->container->get('logger')
++            ->debug(sprintf('Found %d products', count($products)));
++
+         return $products;
+     }
+ 
