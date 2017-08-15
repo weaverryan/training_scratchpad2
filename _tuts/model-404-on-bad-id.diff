@@ -1,0 +1,39 @@
+diff --git a/src/AppBundle/Controller/ProductController.php b/src/AppBundle/Controller/ProductController.php
+index 7b8f8ba..817830d 100644
+--- a/src/AppBundle/Controller/ProductController.php
++++ b/src/AppBundle/Controller/ProductController.php
+@@ -30,6 +30,10 @@ class ProductController extends Controller
+         $productRepo = new ProductRepository();
+         $product = $productRepo->findOne($id);
+ 
++        if (!$product) {
++            throw $this->createNotFoundException('No product for id '.$id);
++        }
++
+         return $this->render('product/show.html.twig', [
+             'product' => $product
+         ]);
+diff --git a/src/AppBundle/Service/ProductRepository.php b/src/AppBundle/Service/ProductRepository.php
+index 08cd6ba..a097e42 100644
+--- a/src/AppBundle/Service/ProductRepository.php
++++ b/src/AppBundle/Service/ProductRepository.php
+@@ -21,7 +21,7 @@ class ProductRepository
+ 
+     /**
+      * @param $id
+-     * @return Product
++     * @return Product|null
+      */
+     public function findOne($id)
+     {
+@@ -30,6 +30,10 @@ class ProductRepository
+         $stmt->execute(['id' => $id]);
+         $row = $stmt->fetch();
+ 
++        if (false === $row) {
++            return;
++        }
++
+         return $this->hydrateProduct($row);
+     }
+ 

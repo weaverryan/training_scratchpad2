@@ -40,7 +40,7 @@ index 0000000..4498b2e
 +{% endblock %}
 +
 diff --git a/src/AppBundle/Controller/ProductController.php b/src/AppBundle/Controller/ProductController.php
-index 8151d50..34b729c 100644
+index 8151d50..28f8ddd 100644
 --- a/src/AppBundle/Controller/ProductController.php
 +++ b/src/AppBundle/Controller/ProductController.php
 @@ -21,4 +21,20 @@ class ProductController extends Controller
@@ -57,10 +57,10 @@ index 8151d50..34b729c 100644
 +        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 +        $stmt = $pdo->prepare('SELECT * FROM product WHERE id = :id');
 +        $stmt->execute(['id' => $id]);
-+        $product = $stmt->fetch();
++        $row = $stmt->fetch();
 +
 +        return $this->render('product/show.html.twig', [
-+            'product' => $product
++            'product' => $row
 +        ]);
 +    }
  }

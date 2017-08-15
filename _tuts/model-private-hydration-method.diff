@@ -1,0 +1,49 @@
+diff --git a/src/AppBundle/Controller/ProductController.php b/src/AppBundle/Controller/ProductController.php
+index 47ae0c1..3a30539 100644
+--- a/src/AppBundle/Controller/ProductController.php
++++ b/src/AppBundle/Controller/ProductController.php
+@@ -16,9 +16,13 @@ class ProductController extends Controller
+         $pdo = $this->getPDO();
+ 
+         $results = $pdo->query('SELECT * FROM product');
++        $products = [];
++        foreach ($results as $row) {
++            $products[] = $this->hydrateProduct($row);
++        }
+ 
+         return $this->render('product/index.html.twig', [
+-            'products' => $results
++            'products' => $products
+         ]);
+     }
+ 
+@@ -32,11 +36,7 @@ class ProductController extends Controller
+         $stmt->execute(['id' => $id]);
+         $row = $stmt->fetch();
+ 
+-        $product = new Product();
+-        $product->setId($row['id']);
+-        $product->setName($row['name']);
+-        $product->setPrice($row['price']);
+-        $product->setDescription($row['description']);
++        $product = $this->hydrateProduct($row);
+ 
+         return $this->render('product/show.html.twig', [
+             'product' => $product
+@@ -53,4 +53,15 @@ class ProductController extends Controller
+ 
+         return $pdo;
+     }
++
++    private function hydrateProduct(array $row)
++    {
++        $product = new Product();
++        $product->setId($row['id']);
++        $product->setName($row['name']);
++        $product->setPrice($row['price']);
++        $product->setDescription($row['description']);
++
++        return $product;
++    }
+ }
+\ No newline at end of file

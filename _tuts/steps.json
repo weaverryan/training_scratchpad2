@@ -44,7 +44,37 @@
             "id": "product-pdo-create-in-private-method",
             "name": "Product: PDO create in private method",
             "description": null
+        },
+        {
+            "id": "model-create-product-model-class",
+            "name": "Model: Create Product model class",
+            "description": null
+        },
+        {
+            "id": "model-private-hydration-method",
+            "name": "Model: private hydration method",
+            "description": null
+        },
+        {
+            "id": "model-add-productrepository-service",
+            "name": "Model: Add ProductRepository service",
+            "description": null
+        },
+        {
+            "id": "model-productrepository-findone",
+            "name": "Model: ProductRepository::findOne()",
+            "description": null
+        },
+        {
+            "id": "model-404-on-bad-id",
+            "name": "Model: 404 on bad id",
+            "description": null
+        },
+        {
+            "id": "model-add-php-7-return-type",
+            "name": "Model: Add php 7 return type",
+            "description": null
         }
     ],
-    "sha": "473957f36db767b892f0de09aae3c3a7f70f60b5"
+    "sha": "25b7a25c15807696f801ffa4110a451578007737"
 }
