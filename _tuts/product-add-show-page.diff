@@ -1,0 +1,67 @@
+diff --git a/app/Resources/views/product/index.html.twig b/app/Resources/views/product/index.html.twig
+index 22c1143..c75a029 100644
+--- a/app/Resources/views/product/index.html.twig
++++ b/app/Resources/views/product/index.html.twig
+@@ -9,6 +9,11 @@
+                 <tr>
+                     <td>{{ product.name }}</td>
+                     <td>${{ product.price|number_format(2) }}</td>
++                    <td>
++                        <a href="{{ path('product_show', {id: product.id}) }}">
++                            [show]
++                        </a>
++                    </td>
+                 </tr>
+             {% endfor %}
+         </tbody>
+diff --git a/app/Resources/views/product/show.html.twig b/app/Resources/views/product/show.html.twig
+new file mode 100644
+index 0000000..4498b2e
+--- /dev/null
++++ b/app/Resources/views/product/show.html.twig
+@@ -0,0 +1,19 @@
++{% extends 'base.html.twig' %}
++
++{% block body %}
++    <h1>{{ product.name }}</h1>
++
++    <table>
++        <tbody>
++            <tr>
++                <th>Price:</th>
++                <td>{{ product.price }}</td>
++            </tr>
++            <tr>
++                <th>Description:</th>
++                <td>{{ product.description }}</td>
++            </tr>
++        </tbody>
++    </table>
++{% endblock %}
++
+diff --git a/src/AppBundle/Controller/ProductController.php b/src/AppBundle/Controller/ProductController.php
+index 8151d50..34b729c 100644
+--- a/src/AppBundle/Controller/ProductController.php
++++ b/src/AppBundle/Controller/ProductController.php
+@@ -21,4 +21,20 @@ class ProductController extends Controller
+             'products' => $results
+         ]);
+     }
++
++    /**
++     * @Route("/products/{id}", name="product_show")
++     */
++    public function showAction($id)
++    {
++        $pdo = new \PDO('mysql:host=localhost;dbname=chicago_training', 'root');
++        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
++        $stmt = $pdo->prepare('SELECT * FROM product WHERE id = :id');
++        $stmt->execute(['id' => $id]);
++        $product = $stmt->fetch();
++
++        return $this->render('product/show.html.twig', [
++            'product' => $product
++        ]);
++    }
+ }
+\ No newline at end of file

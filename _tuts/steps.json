@@ -1,0 +1,45 @@
+{
+    "steps": [
+        {
+            "id": "start",
+            "name": "start",
+            "description": null
+        },
+        {
+            "id": "start-initial-lucky-page",
+            "name": "Start: Initial lucky page",
+            "description": null
+        },
+        {
+            "id": "start-routing-wildcard",
+            "name": "Start: Routing wildcard",
+            "description": null
+        },
+        {
+            "id": "start-render-template",
+            "name": "Start: Render template",
+            "description": null
+        },
+        {
+            "id": "start-add-bootstrap",
+            "name": "Start: Add bootstrap",
+            "description": null
+        },
+        {
+            "id": "product-add-product-html-list-page",
+            "name": "Product: Add product HTML list page",
+            "description": null
+        },
+        {
+            "id": "product-add-show-page",
+            "name": "Product: Add show page",
+            "description": null
+        },
+        {
+            "id": "product-pdo-create-in-private-method",
+            "name": "Product: PDO create in private method",
+            "description": null
+        }
+    ],
+    "sha": "441d6fe62412b3de902671cd5ec9c38f0478b403"
+}

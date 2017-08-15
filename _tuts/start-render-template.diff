@@ -1,0 +1,40 @@
+diff --git a/app/Resources/views/lucky/number.html.twig b/app/Resources/views/lucky/number.html.twig
+new file mode 100644
+index 0000000..64657bc
+--- /dev/null
++++ b/app/Resources/views/lucky/number.html.twig
+@@ -0,0 +1,5 @@
++{% extends 'base.html.twig' %}
++
++{% block body %}
++    <h1>Number: {{ number }}</h1>
++{% endblock %}
+\ No newline at end of file
+diff --git a/src/AppBundle/Controller/LuckyController.php b/src/AppBundle/Controller/LuckyController.php
+index d00cece..4972e34 100644
+--- a/src/AppBundle/Controller/LuckyController.php
++++ b/src/AppBundle/Controller/LuckyController.php
+@@ -3,9 +3,10 @@
+ namespace AppBundle\Controller;
+ 
+ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
++use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+ use Symfony\Component\HttpFoundation\Response;
+ 
+-class LuckyController
++class LuckyController extends Controller
+ {
+     /**
+      * @Route("/lucky/number/{max}")
+@@ -14,8 +15,8 @@ class LuckyController
+     {
+         $number = mt_rand(0, $max);
+ 
+-        return new Response(
+-            '<html><body>Lucky number: '.$number.'</body></html>'
+-        );
++        return $this->render('lucky/number.html.twig', [
++            'number' => $number
++        ]);
+     }
+ }

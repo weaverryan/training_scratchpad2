@@ -1,0 +1,27 @@
+diff --git a/src/AppBundle/Controller/LuckyController.php b/src/AppBundle/Controller/LuckyController.php
+new file mode 100644
+index 0000000..7cd8768
+--- /dev/null
++++ b/src/AppBundle/Controller/LuckyController.php
+@@ -0,0 +1,21 @@
++<?php
++
++namespace AppBundle\Controller;
++
++use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
++use Symfony\Component\HttpFoundation\Response;
++
++class LuckyController
++{
++    /**
++     * @Route("/lucky/number")
++     */
++    public function numberAction()
++    {
++        $number = mt_rand(0, 100);
++
++        return new Response(
++            '<html><body>Lucky number: '.$number.'</body></html>'
++        );
++    }
++}

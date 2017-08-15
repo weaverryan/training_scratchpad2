@@ -1,0 +1,54 @@
+diff --git a/app/Resources/views/product/index.html.twig b/app/Resources/views/product/index.html.twig
+new file mode 100644
+index 0000000..22c1143
+--- /dev/null
++++ b/app/Resources/views/product/index.html.twig
+@@ -0,0 +1,16 @@
++{% extends 'base.html.twig' %}
++
++{% block body %}
++    <h1>Products</h1>
++
++    <table class="table">
++        <tbody>
++            {% for product in products %}
++                <tr>
++                    <td>{{ product.name }}</td>
++                    <td>${{ product.price|number_format(2) }}</td>
++                </tr>
++            {% endfor %}
++        </tbody>
++    </table>
++{% endblock %}
+\ No newline at end of file
+diff --git a/src/AppBundle/Controller/ProductController.php b/src/AppBundle/Controller/ProductController.php
+new file mode 100644
+index 0000000..8151d50
+--- /dev/null
++++ b/src/AppBundle/Controller/ProductController.php
+@@ -0,0 +1,24 @@
++<?php
++
++namespace AppBundle\Controller;
++
++use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
++use Symfony\Bundle\FrameworkBundle\Controller\Controller;
++
++class ProductController extends Controller
++{
++    /**
++     * @Route("/products", name="product_list")
++     */
++    public function indexAction()
++    {
++        $pdo = new \PDO('mysql:host=localhost;dbname=chicago_training', 'root');
++        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
++
++        $results = $pdo->query('SELECT * FROM product');
++
++        return $this->render('product/index.html.twig', [
++            'products' => $results
++        ]);
++    }
++}
+\ No newline at end of file
