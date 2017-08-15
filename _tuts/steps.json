@@ -6,6 +6,11 @@
             "description": null
         },
         {
+            "id": "before-delete-entity-stuff",
+            "name": "Before: Delete entity stuff",
+            "description": null
+        },
+        {
             "id": "start-initial-lucky-page",
             "name": "Start: Initial lucky page",
             "description": null
@@ -41,5 +46,5 @@
             "description": null
         }
     ],
-    "sha": "441d6fe62412b3de902671cd5ec9c38f0478b403"
+    "sha": "473957f36db767b892f0de09aae3c3a7f70f60b5"
 }
