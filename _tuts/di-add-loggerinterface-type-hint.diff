@@ -1,5 +1,5 @@
 diff --git a/src/AppBundle/Service/ProductRepository.php b/src/AppBundle/Service/ProductRepository.php
-index fdf1daf..412e774 100644
+index 4bb1d84..2e6d187 100644
 --- a/src/AppBundle/Service/ProductRepository.php
 +++ b/src/AppBundle/Service/ProductRepository.php
 @@ -9,7 +9,7 @@ class ProductRepository

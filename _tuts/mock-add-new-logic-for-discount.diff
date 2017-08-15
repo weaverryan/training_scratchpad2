@@ -1,0 +1,65 @@
+diff --git a/play.php b/play.php
+index 1ab551b..23ccef5 100644
+--- a/play.php
++++ b/play.php
+@@ -20,4 +20,11 @@ $data = [
+ ];
+ $response = $client->post('/api/products', [
+     'body' => json_encode($data)
+-]);
+\ No newline at end of file
++]);
++
++$kernel = new AppKernel('dev', true);
++$kernel->boot();
++$container = $kernel->getContainer();
++
++dump($container->get('app.product_repository')
++    ->getMostExpensivePrice());
+diff --git a/src/AppBundle/Service/DiscountManager.php b/src/AppBundle/Service/DiscountManager.php
+index 52c37f2..bc28bbb 100644
+--- a/src/AppBundle/Service/DiscountManager.php
++++ b/src/AppBundle/Service/DiscountManager.php
+@@ -6,8 +6,23 @@ use AppBundle\Model\Product;
+ 
+ class DiscountManager
+ {
++    private $productRepository;
++
++    public function __construct(ProductRepository $productRepository)
++    {
++        $this->productRepository = $productRepository;
++    }
++
+     public function getDiscountedPrice(Product $product)
+     {
++        $mostExpensivePrice = $this->productRepository
++            ->getMostExpensivePrice();
++
++        // no discount for most expensive... ever
++        if ($product->getPrice() == $mostExpensivePrice) {
++            return $product->getPrice();
++        }
++
+         if ($product->getPrice() < 100) {
+             return $product->getPrice() * .9;
+         }
+diff --git a/src/AppBundle/Service/ProductRepository.php b/src/AppBundle/Service/ProductRepository.php
+index 7c894e0..a1c7ebd 100644
+--- a/src/AppBundle/Service/ProductRepository.php
++++ b/src/AppBundle/Service/ProductRepository.php
+@@ -64,6 +64,14 @@ class ProductRepository
+         $product->setId($this->pdo->lastInsertId());
+     }
+ 
++    public function getMostExpensivePrice(): float
++    {
++        $stmt = $this->pdo->prepare('SELECT MAX(price) as maxPrice FROM product');
++        $stmt->execute();
++
++        return $stmt->fetchColumn(0);
++    }
++
+     private function hydrateProduct(array $row)
+     {
+         $product = new Product();

@@ -1,0 +1,64 @@
+diff --git a/src/AppBundle/Service/DiscountManager.php b/src/AppBundle/Service/DiscountManager.php
+new file mode 100644
+index 0000000..8c778b1
+--- /dev/null
++++ b/src/AppBundle/Service/DiscountManager.php
+@@ -0,0 +1,13 @@
++<?php
++
++namespace AppBundle\Service;
++
++use AppBundle\Model\Product;
++
++class DiscountManager
++{
++    public function getDiscountedPrice(Product $product)
++    {
++
++    }
++}
+\ No newline at end of file
+diff --git a/tests/AppBundle/Controller/ProductApiControllerTest.php b/tests/AppBundle/Controller/ProductApiControllerTest.php
+index c68c4d7..c23f483 100644
+--- a/tests/AppBundle/Controller/ProductApiControllerTest.php
++++ b/tests/AppBundle/Controller/ProductApiControllerTest.php
+@@ -35,10 +35,11 @@ class ProductApiControllerTest extends TestCase
+             'base_uri' => 'http://localhost:9008'
+         ]);
+ 
+-        $response = $client->get('/api/products/1');
++        $response = $client->get('/api/products/8');
+ 
+         $this->assertEquals(200, $response->getStatusCode());
+         $data = json_decode($response->getBody(), true);
+         $this->assertEquals('Amazon Echo', $data['name']);
++        $this->assertArrayHasKey('salesPrice', $data);
+     }
+ }
+diff --git a/tests/AppBundle/Service/DiscountManager.php b/tests/AppBundle/Service/DiscountManager.php
+new file mode 100644
+index 0000000..758af39
+--- /dev/null
++++ b/tests/AppBundle/Service/DiscountManager.php
+@@ -0,0 +1,20 @@
++<?php
++
++namespace Tests\AppBundle\Service;
++
++use AppBundle\Model\Product;
++use AppBundle\Service\DiscountManager;
++use PHPUnit\Framework\TestCase;
++
++class DiscountManagerTest extends TestCase
++{
++    public function testGetDiscountedPrice()
++    {
++        $discountManager = new DiscountManager();
++
++        $product = new Product();
++        $product->setPrice(30);
++
++        $this->assertEquals(27, $discountManager->getDiscountedPrice($product));
++    }
++}
+\ No newline at end of file

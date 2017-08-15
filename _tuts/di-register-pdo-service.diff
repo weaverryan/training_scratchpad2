@@ -15,7 +15,7 @@ index c1c8bc3..08aaa8d 100644
 +            - 'mysql:host=localhost;dbname=chicago_training'
 +            - 'root'
 diff --git a/src/AppBundle/Service/ProductRepository.php b/src/AppBundle/Service/ProductRepository.php
-index 412e774..0c27470 100644
+index 2e6d187..3a88f02 100644
 --- a/src/AppBundle/Service/ProductRepository.php
 +++ b/src/AppBundle/Service/ProductRepository.php
 @@ -8,15 +8,17 @@ use Psr\Log\LoggerInterface;
@@ -36,9 +36,9 @@ index 412e774..0c27470 100644
 -        $pdo = $this->getPDO();
 +        $pdo = $this->pdo;
  
-         $results = $pdo->query('SELECT * FROM product');
-         $products = [];
-@@ -36,7 +38,7 @@ class ProductRepository
+         $stmt = $pdo->prepare('SELECT * FROM product');
+         $stmt->execute();
+@@ -38,7 +40,7 @@ class ProductRepository
       */
      public function findOne($id) : ?Product
      {
@@ -47,7 +47,7 @@ index 412e774..0c27470 100644
          $stmt = $pdo->prepare('SELECT * FROM product WHERE id = :id');
          $stmt->execute(['id' => $id]);
          $row = $stmt->fetch();
-@@ -48,17 +50,6 @@ class ProductRepository
+@@ -50,17 +52,6 @@ class ProductRepository
          return $this->hydrateProduct($row);
      }
  

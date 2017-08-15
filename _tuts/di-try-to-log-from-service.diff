@@ -13,10 +13,10 @@ index 62f97fc..acc6dea 100644
              ->serialize($products, 'json');
  
 diff --git a/src/AppBundle/Service/ProductRepository.php b/src/AppBundle/Service/ProductRepository.php
-index 8eb0122..7d21b8f 100644
+index e4ddf8d..f86aca6 100644
 --- a/src/AppBundle/Service/ProductRepository.php
 +++ b/src/AppBundle/Service/ProductRepository.php
-@@ -16,6 +16,9 @@ class ProductRepository
+@@ -18,6 +18,9 @@ class ProductRepository
              $products[] = $this->hydrateProduct($row);
          }
  

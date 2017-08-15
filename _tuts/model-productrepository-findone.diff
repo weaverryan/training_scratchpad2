@@ -44,10 +44,10 @@ index 2d4e682..7b8f8ba 100644
  }
 \ No newline at end of file
 diff --git a/src/AppBundle/Service/ProductRepository.php b/src/AppBundle/Service/ProductRepository.php
-index fd64424..08cd6ba 100644
+index 49fc9c9..156a3c9 100644
 --- a/src/AppBundle/Service/ProductRepository.php
 +++ b/src/AppBundle/Service/ProductRepository.php
-@@ -20,6 +20,20 @@ class ProductRepository
+@@ -22,6 +22,20 @@ class ProductRepository
      }
  
      /**

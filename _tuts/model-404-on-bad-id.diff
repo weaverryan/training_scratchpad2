@@ -14,10 +14,10 @@ index 7b8f8ba..817830d 100644
              'product' => $product
          ]);
 diff --git a/src/AppBundle/Service/ProductRepository.php b/src/AppBundle/Service/ProductRepository.php
-index 08cd6ba..3563073 100644
+index 156a3c9..749308f 100644
 --- a/src/AppBundle/Service/ProductRepository.php
 +++ b/src/AppBundle/Service/ProductRepository.php
-@@ -21,7 +21,7 @@ class ProductRepository
+@@ -23,7 +23,7 @@ class ProductRepository
  
      /**
       * @param $id
@@ -26,7 +26,7 @@ index 08cd6ba..3563073 100644
       */
      public function findOne($id)
      {
-@@ -30,6 +30,10 @@ class ProductRepository
+@@ -32,6 +32,10 @@ class ProductRepository
          $stmt->execute(['id' => $id]);
          $row = $stmt->fetch();
  

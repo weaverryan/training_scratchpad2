@@ -159,7 +159,52 @@
             "id": "test-test-first-then-show-endpoint",
             "name": "Test: Test first, then show endpoint",
             "description": null
+        },
+        {
+            "id": "tdd-create-failing-test",
+            "name": "TDD: Create failing test",
+            "description": null
+        },
+        {
+            "id": "tdd-cheat-to-pass-test",
+            "name": "TDD: Cheat to pass test",
+            "description": null
+        },
+        {
+            "id": "tdd-dataprovider-for-more-test",
+            "name": "TDD: dataProvider for more test",
+            "description": null
+        },
+        {
+            "id": "tdd-add-new-req-in-test-code",
+            "name": "TDD: Add new req in test + code",
+            "description": null
+        },
+        {
+            "id": "mock-add-new-logic-for-discount",
+            "name": "Mock: Add new logic for discount",
+            "description": null
+        },
+        {
+            "id": "mock-add-dumb-mock-to-pass",
+            "name": "Mock: Add dumb mock to pass",
+            "description": null
+        },
+        {
+            "id": "mock-mock-method",
+            "name": "Mock: Mock method",
+            "description": null
+        },
+        {
+            "id": "serializer-adding-subscriber",
+            "name": "Serializer: Adding subscriber",
+            "description": null
+        },
+        {
+            "id": "serializer-get-real-discounted-price",
+            "name": "Serializer: Get real discounted price",
+            "description": null
         }
     ],
-    "sha": "7b0e17b46aa7b1b0dcd2d8de2bb46498c864b4dd"
+    "sha": "2f7eb0798f6cdff44091bb4b4fa1e57b79bd43cf"
 }

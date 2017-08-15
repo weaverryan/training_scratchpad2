@@ -1,11 +1,15 @@
 diff --git a/src/AppBundle/Controller/ProductController.php b/src/AppBundle/Controller/ProductController.php
-index 47ae0c1..3a30539 100644
+index 47ae0c1..c03ff5c 100644
 --- a/src/AppBundle/Controller/ProductController.php
 +++ b/src/AppBundle/Controller/ProductController.php
-@@ -16,9 +16,13 @@ class ProductController extends Controller
+@@ -15,10 +15,16 @@ class ProductController extends Controller
+     {
          $pdo = $this->getPDO();
  
-         $results = $pdo->query('SELECT * FROM product');
+-        $results = $pdo->query('SELECT * FROM product');
++        $stmt = $pdo->prepare('SELECT * FROM product');
++        $stmt->execute();
++        $results = $stmt->fetchAll();
 +        $products = [];
 +        foreach ($results as $row) {
 +            $products[] = $this->hydrateProduct($row);
@@ -17,7 +21,7 @@ index 47ae0c1..3a30539 100644
          ]);
      }
  
-@@ -32,11 +36,7 @@ class ProductController extends Controller
+@@ -32,11 +38,7 @@ class ProductController extends Controller
          $stmt->execute(['id' => $id]);
          $row = $stmt->fetch();
  
@@ -30,7 +34,7 @@ index 47ae0c1..3a30539 100644
  
          return $this->render('product/show.html.twig', [
              'product' => $product
-@@ -53,4 +53,15 @@ class ProductController extends Controller
+@@ -53,4 +55,15 @@ class ProductController extends Controller
  
          return $pdo;
      }
