@@ -1,0 +1,48 @@
+diff --git a/src/AppBundle/Controller/ProductApiController.php b/src/AppBundle/Controller/ProductApiController.php
+index d005c12..d16de90 100644
+--- a/src/AppBundle/Controller/ProductApiController.php
++++ b/src/AppBundle/Controller/ProductApiController.php
+@@ -47,4 +47,18 @@ class ProductApiController extends Controller
+ 
+         return new Response($json, 201);
+     }
++
++    /**
++     * @Route("/api/products/{id}", name="api_product_show")
++     */
++    public function showAction($id)
++    {
++        $product = $this->container->get('app.product_repository')
++            ->findOne($id);
++
++        $json = $this->container->get('jms_serializer')
++            ->serialize($product, 'json');
++
++        return new Response($json);
++    }
+ }
+\ No newline at end of file
+diff --git a/tests/AppBundle/Controller/ProductApiControllerTest.php b/tests/AppBundle/Controller/ProductApiControllerTest.php
+index ab7fe53..c68c4d7 100644
+--- a/tests/AppBundle/Controller/ProductApiControllerTest.php
++++ b/tests/AppBundle/Controller/ProductApiControllerTest.php
+@@ -28,4 +28,17 @@ class ProductApiControllerTest extends TestCase
+         $this->assertEquals($name, $data['name']);
+         $this->assertNotNull($data['id']);
+     }
+-}
+\ No newline at end of file
++
++    public function testGETSingleProduct()
++    {
++        $client = new Client([
++            'base_uri' => 'http://localhost:9008'
++        ]);
++
++        $response = $client->get('/api/products/1');
++
++        $this->assertEquals(200, $response->getStatusCode());
++        $data = json_decode($response->getBody(), true);
++        $this->assertEquals('Amazon Echo', $data['name']);
++    }
++}

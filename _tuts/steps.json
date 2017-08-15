@@ -139,7 +139,27 @@
             "id": "guzzle-add-post-new-endpoint",
             "name": "Guzzle: Add POST new endpoint",
             "description": null
+        },
+        {
+            "id": "test-install-phpunit",
+            "name": "Test: Install phpunit",
+            "description": null
+        },
+        {
+            "id": "test-very-basic-test",
+            "name": "Test: Very basic test",
+            "description": null
+        },
+        {
+            "id": "test-functional-test-for-post",
+            "name": "Test: Functional test for POST",
+            "description": null
+        },
+        {
+            "id": "test-test-first-then-show-endpoint",
+            "name": "Test: Test first, then show endpoint",
+            "description": null
         }
     ],
-    "sha": "b6ab597d6cda3a57eeedcd6612862b469597e2e9"
+    "sha": "7b0e17b46aa7b1b0dcd2d8de2bb46498c864b4dd"
 }
