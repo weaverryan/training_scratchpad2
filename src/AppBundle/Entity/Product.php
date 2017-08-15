@@ -20,15 +20,15 @@ class Product
     /**
      * @ORM\Column(type="string")
      */
-    private $name;
+    public $name;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $price;
+    public $price;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $description;
+    public $description;
 }

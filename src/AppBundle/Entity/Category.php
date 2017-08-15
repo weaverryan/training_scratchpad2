@@ -20,5 +20,5 @@ class Category
     /**
      * @ORM\Column(type="string")
      */
-    private $name;
+    public $name;
 }
