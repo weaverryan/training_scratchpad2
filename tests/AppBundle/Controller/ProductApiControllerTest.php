@@ -2,12 +2,30 @@
 
 namespace Tests\AppBundle\Controller;
 
+use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 
 class ProductApiControllerTest extends TestCase
 {
     public function testPOSTCreateProduct()
     {
-        $this->assertEquals(42, 21*2);
+        $client = new Client([
+            'base_uri' => 'http://localhost:9008'
+        ]);
+
+        $name = 'New product '.rand();
+        $data = [
+            'name' => $name,
+            'price' => rand(10, 100),
+            'description' => 'Lorem Ipsum',
+        ];
+        $response = $client->post('/api/products', [
+            'body' => json_encode($data)
+        ]);
+
+        $this->assertEquals(201, $response->getStatusCode());
+        $data = json_decode($response->getBody(), true);
+        $this->assertEquals($name, $data['name']);
+        $this->assertNotNull($data['id']);
     }
 }
