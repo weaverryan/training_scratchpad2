@@ -17,6 +17,9 @@ class ProductApiController extends Controller
         $productRepo = new ProductRepository();
         $products = $productRepo->findAll();
 
+        $this->container->get('logger')
+            ->debug(sprintf('Found %d products', count($products)));
+
         $json = $this->container->get('jms_serializer')
             ->serialize($products, 'json');
 
