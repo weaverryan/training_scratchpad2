@@ -3,9 +3,17 @@
 namespace AppBundle\Service;
 
 use AppBundle\Model\Product;
+use Psr\Log\LoggerInterface;
 
 class ProductRepository
 {
+    private $logger;
+
+    public function __construct($logger)
+    {
+        $this->logger = $logger;
+    }
+
     public function findAll()
     {
         $pdo = $this->getPDO();
@@ -18,7 +26,7 @@ class ProductRepository
             $products[] = $this->hydrateProduct($row);
         }
 
-        $this->container->get('logger')
+        $this->logger
             ->debug(sprintf('Found %d products', count($products)));
 
         return $products;
