@@ -12,8 +12,7 @@ class ProductController extends Controller
      */
     public function indexAction()
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=chicago_training', 'root');
-        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $pdo = $this->getPDO();
 
         $results = $pdo->query('SELECT * FROM product');
 
@@ -27,8 +26,7 @@ class ProductController extends Controller
      */
     public function showAction($id)
     {
-        $pdo = new \PDO('mysql:host=localhost;dbname=chicago_training', 'root');
-        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $pdo = $this->getPDO();
         $stmt = $pdo->prepare('SELECT * FROM product WHERE id = :id');
         $stmt->execute(['id' => $id]);
         $row = $stmt->fetch();
@@ -36,5 +34,16 @@ class ProductController extends Controller
         return $this->render('product/show.html.twig', [
             'product' => $row
         ]);
+    }
+
+    /**
+     * @return \PDO
+     */
+    private function getPDO()
+    {
+        $pdo = new \PDO('mysql:host=localhost;dbname=chicago_training', 'root');
+        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+        return $pdo;
     }
 }
