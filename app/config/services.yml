@@ -6,4 +6,10 @@ parameters:
 services:
     app.product_repository:
         class: AppBundle\Service\ProductRepository
-        arguments: ['@logger']
+        arguments: ['@logger', '@app.pdo']
+
+    app.pdo:
+        class: PDO
+        arguments:
+            - 'mysql:host=localhost;dbname=chicago_training'
+            - 'root'

@@ -8,15 +8,17 @@ use Psr\Log\LoggerInterface;
 class ProductRepository
 {
     private $logger;
+    private $pdo;
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger, \PDO $pdo)
     {
         $this->logger = $logger;
+        $this->pdo = $pdo;
     }
 
     public function findAll()
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->pdo;
 
         $stmt = $pdo->prepare('SELECT * FROM product');
         $stmt->execute();
@@ -38,7 +40,7 @@ class ProductRepository
      */
     public function findOne($id) : ?Product
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->pdo;
         $stmt = $pdo->prepare('SELECT * FROM product WHERE id = :id');
         $stmt->execute(['id' => $id]);
         $row = $stmt->fetch();
@@ -48,17 +50,6 @@ class ProductRepository
         }
 
         return $this->hydrateProduct($row);
-    }
-
-    /**
-     * @return \PDO
-     */
-    private function getPDO()
-    {
-        $pdo = new \PDO('mysql:host=localhost;dbname=chicago_training', 'root');
-        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
-        return $pdo;
     }
 
     private function hydrateProduct(array $row)
