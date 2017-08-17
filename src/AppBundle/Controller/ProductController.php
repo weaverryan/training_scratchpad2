@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Model\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -31,8 +32,14 @@ class ProductController extends Controller
         $stmt->execute(['id' => $id]);
         $row = $stmt->fetch();
 
+        $product = new Product();
+        $product->setId($row['id']);
+        $product->setName($row['name']);
+        $product->setPrice($row['price']);
+        $product->setDescription($row['description']);
+
         return $this->render('product/show.html.twig', [
-            'product' => $row
+            'product' => $product
         ]);
     }
 
