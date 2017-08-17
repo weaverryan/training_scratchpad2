@@ -17,7 +17,12 @@ services:
             # $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             - [ setAttribute, [3, 2] ]
 
+    app.discount_manager:
+        class: AppBundle\Service\DiscountManager
+        arguments: ['@app.product_repository']
+
     app.product_serialization_subscriber:
         class: AppBundle\Serializer\ProductSerializerSubscriber
+        arguments: ['@app.discount_manager']
         tags:
             - { name: jms_serializer.event_subscriber }
