@@ -12,11 +12,15 @@ class DiscountManagerTest extends TestCase
     /**
      * @dataProvider getPriceTests
      */
-    public function testGetDiscountedPrice($productPrice, $expectedDiscountedPrice)
+    public function testGetDiscountedPrice($productPrice, $mostExpensivePrice, $expectedDiscountedPrice)
     {
         $productRepo = $this->getMockBuilder(ProductRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
+
+        $productRepo->expects($this->any())
+            ->method('getMostExpensivePrice')
+            ->willReturn($mostExpensivePrice);
 
         $discountManager = new DiscountManager($productRepo);
 
@@ -29,10 +33,11 @@ class DiscountManagerTest extends TestCase
     public function getPriceTests()
     {
         $tests = [];
-        $tests[] = [30, 27];
-        $tests[] = [120, 96];
-        $tests[] = [200, 140];
-        $tests[] = [500, 250];
+        $tests[] = [30, 900, 27];
+        $tests[] = [120, 900, 96];
+        $tests[] = [200, 900, 140];
+        $tests[] = [500, 900, 250];
+        $tests['no_discount_most_expensive'] = [500, 500, 500];
 
         return $tests;
     }
