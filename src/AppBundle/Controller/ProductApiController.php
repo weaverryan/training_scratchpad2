@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Service\ProductRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductApiController extends Controller
 {
@@ -16,6 +17,9 @@ class ProductApiController extends Controller
         $productRepo = new ProductRepository();
         $products = $productRepo->findAll();
 
-        return $this->json($products);
+        $json = $this->container->get('jms_serializer')
+            ->serialize($products, 'json');
+
+        return new Response($json);
     }
 }
