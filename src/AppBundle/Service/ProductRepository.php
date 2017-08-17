@@ -9,7 +9,7 @@ class ProductRepository
 {
     private $logger;
 
-    public function __construct($logger)
+    public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
