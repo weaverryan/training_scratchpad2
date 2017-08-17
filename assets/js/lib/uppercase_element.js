@@ -1,3 +1,3 @@
-module.exports = function($el) {
+export default function($el) {
     $el.addClass('text-uppercase');
 };
