@@ -13,3 +13,6 @@ services:
         arguments:
             - 'mysql:host=localhost;dbname=chicago_training'
             - 'root'
+        calls:
+            # $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            - [ setAttribute, [3, 2] ]
