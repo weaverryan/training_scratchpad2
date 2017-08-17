@@ -27,6 +27,7 @@ class DiscountManagerTest extends TestCase
         $tests[] = [30, 27];
         $tests[] = [120, 96];
         $tests[] = [200, 140];
+        $tests[] = [500, 250];
 
         return $tests;
     }
