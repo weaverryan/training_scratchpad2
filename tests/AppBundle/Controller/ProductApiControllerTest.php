@@ -35,10 +35,11 @@ class ProductApiControllerTest extends TestCase
             'base_uri' => 'http://localhost:9008'
         ]);
 
-        $response = $client->get('/api/products/1');
+        $response = $client->get('/api/products/8');
 
         $this->assertEquals(200, $response->getStatusCode());
         $data = json_decode($response->getBody(), true);
         $this->assertEquals('Amazon Echo', $data['name']);
+        $this->assertArrayHasKey('salesPrice', $data);
     }
 }
