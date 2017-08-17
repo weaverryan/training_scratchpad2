@@ -22,6 +22,20 @@ class ProductRepository
     }
 
     /**
+     * @param $id
+     * @return Product
+     */
+    public function findOne($id)
+    {
+        $pdo = $this->getPDO();
+        $stmt = $pdo->prepare('SELECT * FROM product WHERE id = :id');
+        $stmt->execute(['id' => $id]);
+        $row = $stmt->fetch();
+
+        return $this->hydrateProduct($row);
+    }
+
+    /**
      * @return \PDO
      */
     private function getPDO()
