@@ -25,7 +25,7 @@ class ProductRepository
      * @param $id
      * @return Product|null
      */
-    public function findOne($id)
+    public function findOne($id) : ?Product
     {
         $pdo = $this->getPDO();
         $stmt = $pdo->prepare('SELECT * FROM product WHERE id = :id');
