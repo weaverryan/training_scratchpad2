@@ -9,6 +9,11 @@
                 <tr>
                     <td>{{ product.name }}</td>
                     <td>${{ product.price|number_format(2) }}</td>
+                    <td>
+                        <a href="{{ path('product_show', {id: product.id}) }}">
+                            [show]
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

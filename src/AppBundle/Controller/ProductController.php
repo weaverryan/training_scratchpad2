@@ -21,4 +21,20 @@ class ProductController extends Controller
             'products' => $results
         ]);
     }
+
+    /**
+     * @Route("/products/{id}", name="product_show")
+     */
+    public function showAction($id)
+    {
+        $pdo = new \PDO('mysql:host=localhost;dbname=chicago_training', 'root');
+        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $stmt = $pdo->prepare('SELECT * FROM product WHERE id = :id');
+        $stmt->execute(['id' => $id]);
+        $row = $stmt->fetch();
+
+        return $this->render('product/show.html.twig', [
+            'product' => $row
+        ]);
+    }
 }
