@@ -13,6 +13,9 @@ class ProductApiController extends Controller
      */
     public function listAction()
     {
-        return $this->json(['products' => 'foo']);
+        $productRepo = new ProductRepository();
+        $products = $productRepo->findAll();
+
+        return $this->json($products);
     }
 }
