@@ -1,21 +1,3 @@
-diff --git a/play.php b/play.php
-index 1ab551b..23ccef5 100644
---- a/play.php
-+++ b/play.php
-@@ -20,4 +20,11 @@ $data = [
- ];
- $response = $client->post('/api/products', [
-     'body' => json_encode($data)
--]);
-\ No newline at end of file
-+]);
-+
-+$kernel = new AppKernel('dev', true);
-+$kernel->boot();
-+$container = $kernel->getContainer();
-+
-+dump($container->get('app.product_repository')
-+    ->getMostExpensivePrice());
 diff --git a/src/AppBundle/Service/DiscountManager.php b/src/AppBundle/Service/DiscountManager.php
 index 52c37f2..bc28bbb 100644
 --- a/src/AppBundle/Service/DiscountManager.php

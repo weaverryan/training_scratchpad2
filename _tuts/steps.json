@@ -146,6 +146,11 @@
             "description": null
         },
         {
+            "id": "test-try-a-crawler-test",
+            "name": "Test: Try a Crawler test",
+            "description": null
+        },
+        {
             "id": "test-very-basic-test",
             "name": "Test: Very basic test",
             "description": null
@@ -204,7 +209,37 @@
             "id": "serializer-get-real-discounted-price",
             "name": "Serializer: Get real discounted price",
             "description": null
+        },
+        {
+            "id": "encore-install-it",
+            "name": "Encore: Install it",
+            "description": null
+        },
+        {
+            "id": "encore-initial-setup",
+            "name": "Encore: Initial setup",
+            "description": null
+        },
+        {
+            "id": "encore-require-jquery",
+            "name": "Encore: require jquery",
+            "description": null
+        },
+        {
+            "id": "encore-remove-addstyleentry",
+            "name": "Encore: Remove addStyleEntry",
+            "description": null
+        },
+        {
+            "id": "encore-refactor-to-component",
+            "name": "Encore: Refactor to component",
+            "description": null
+        },
+        {
+            "id": "encore-use-import-export",
+            "name": "Encore: use import\/export",
+            "description": null
         }
     ],
-    "sha": "2f7eb0798f6cdff44091bb4b4fa1e57b79bd43cf"
+    "sha": "a04280ac228d674f8c181a0bdc1d617802f5735c"
 }
