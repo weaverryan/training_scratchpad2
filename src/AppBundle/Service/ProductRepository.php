@@ -52,6 +52,18 @@ class ProductRepository
         return $this->hydrateProduct($row);
     }
 
+    public function save(Product $product)
+    {
+        $stmt = $this->pdo->prepare('INSERT INTO product (name, price, description) VALUES (:name, :price, :description)');
+        $stmt->execute([
+            'name' => $product->getName(),
+            'price' => $product->getPrice(),
+            'description' => $product->getDescription(),
+        ]);
+
+        $product->setId($this->pdo->lastInsertId());
+    }
+
     private function hydrateProduct(array $row)
     {
         $product = new Product();
