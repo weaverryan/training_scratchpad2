@@ -47,4 +47,18 @@ class ProductApiController extends Controller
 
         return new Response($json, 201);
     }
+
+    /**
+     * @Route("/api/products/{id}", name="api_product_show")
+     */
+    public function showAction($id)
+    {
+        $product = $this->container->get('app.product_repository')
+            ->findOne($id);
+
+        $json = $this->container->get('jms_serializer')
+            ->serialize($product, 'json');
+
+        return new Response($json);
+    }
 }

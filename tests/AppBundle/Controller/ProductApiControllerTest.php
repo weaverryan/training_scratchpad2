@@ -28,4 +28,17 @@ class ProductApiControllerTest extends TestCase
         $this->assertEquals($name, $data['name']);
         $this->assertNotNull($data['id']);
     }
+
+    public function testGETSingleProduct()
+    {
+        $client = new Client([
+            'base_uri' => 'http://localhost:9008'
+        ]);
+
+        $response = $client->get('/api/products/1');
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $data = json_decode($response->getBody(), true);
+        $this->assertEquals('Amazon Echo', $data['name']);
+    }
 }
