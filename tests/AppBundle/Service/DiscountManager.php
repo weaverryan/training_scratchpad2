@@ -4,6 +4,7 @@ namespace Tests\AppBundle\Service;
 
 use AppBundle\Model\Product;
 use AppBundle\Service\DiscountManager;
+use AppBundle\Service\ProductRepository;
 use PHPUnit\Framework\TestCase;
 
 class DiscountManagerTest extends TestCase
@@ -13,7 +14,11 @@ class DiscountManagerTest extends TestCase
      */
     public function testGetDiscountedPrice($productPrice, $expectedDiscountedPrice)
     {
-        $discountManager = new DiscountManager();
+        $productRepo = $this->getMockBuilder(ProductRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $discountManager = new DiscountManager($productRepo);
 
         $product = new Product();
         $product->setPrice($productPrice);
