@@ -23,7 +23,7 @@ class ProductRepository
 
     /**
      * @param $id
-     * @return Product
+     * @return Product|null
      */
     public function findOne($id)
     {
@@ -31,6 +31,10 @@ class ProductRepository
         $stmt = $pdo->prepare('SELECT * FROM product WHERE id = :id');
         $stmt->execute(['id' => $id]);
         $row = $stmt->fetch();
+
+        if (false === $row) {
+            return null;
+        }
 
         return $this->hydrateProduct($row);
     }

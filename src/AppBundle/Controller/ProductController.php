@@ -30,6 +30,10 @@ class ProductController extends Controller
         $productRepo = new ProductRepository();
         $product = $productRepo->findOne($id);
 
+        if (!$product) {
+            throw $this->createNotFoundException('No product for id '.$id);
+        }
+
         return $this->render('product/show.html.twig', [
             'product' => $product
         ]);
