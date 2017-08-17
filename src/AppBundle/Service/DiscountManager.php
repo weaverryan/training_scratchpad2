@@ -8,6 +8,14 @@ class DiscountManager
 {
     public function getDiscountedPrice(Product $product)
     {
-        return 27;
+        if ($product->getPrice() < 100) {
+            return $product->getPrice() * .9;
+        }
+
+        if ($product->getPrice() < 200) {
+            return $product->getPrice() * .8;
+        }
+
+        return $product->getPrice() * .7;
     }
 }

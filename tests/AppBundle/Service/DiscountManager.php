@@ -8,13 +8,26 @@ use PHPUnit\Framework\TestCase;
 
 class DiscountManagerTest extends TestCase
 {
-    public function testGetDiscountedPrice()
+    /**
+     * @dataProvider getPriceTests
+     */
+    public function testGetDiscountedPrice($productPrice, $expectedDiscountedPrice)
     {
         $discountManager = new DiscountManager();
 
         $product = new Product();
-        $product->setPrice(30);
+        $product->setPrice($productPrice);
 
-        $this->assertEquals(27, $discountManager->getDiscountedPrice($product));
+        $this->assertEquals($expectedDiscountedPrice, $discountManager->getDiscountedPrice($product));
+    }
+
+    public function getPriceTests()
+    {
+        $tests = [];
+        $tests[] = [30, 27];
+        $tests[] = [120, 96];
+        $tests[] = [200, 140];
+
+        return $tests;
     }
 }
