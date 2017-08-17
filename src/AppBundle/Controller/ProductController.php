@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function indexAction()
     {
-        $productRepo = new ProductRepository();
+        $productRepo = $this->container->get('app.product_repository');
         $products = $productRepo->findAll();
 
         return $this->render('product/index.html.twig', [
@@ -27,7 +27,7 @@ class ProductController extends Controller
      */
     public function showAction($id)
     {
-        $productRepo = new ProductRepository();
+        $productRepo = $this->container->get('app.product_repository');
         $product = $productRepo->findOne($id);
 
         if (!$product) {

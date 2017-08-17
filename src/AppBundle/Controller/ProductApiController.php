@@ -14,9 +14,7 @@ class ProductApiController extends Controller
      */
     public function listAction()
     {
-        $productRepo = new ProductRepository(
-            $this->container->get('logger')
-        );
+        $productRepo = $this->container->get('app.product_repository');
         $products = $productRepo->findAll();
 
         $json = $this->container->get('jms_serializer')
