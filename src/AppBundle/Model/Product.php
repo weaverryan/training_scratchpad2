@@ -2,6 +2,8 @@
 
 namespace AppBundle\Model;
 
+use JMS\Serializer\Annotation as Serializer;
+
 class Product
 {
     private $id;
@@ -50,5 +52,14 @@ class Product
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @Serializer\VirtualProperty()
+     * @Serializer\SerializedName("isLoud")
+     */
+    public function isLoud()
+    {
+        return $this->name == 'Trombone';
     }
 }
