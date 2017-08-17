@@ -64,6 +64,14 @@ class ProductRepository
         $product->setId($this->pdo->lastInsertId());
     }
 
+    public function getMostExpensivePrice(): float
+    {
+        $stmt = $this->pdo->prepare('SELECT MAX(price) as maxPrice FROM product');
+        $stmt->execute();
+
+        return $stmt->fetchColumn(0);
+    }
+
     private function hydrateProduct(array $row)
     {
         $product = new Product();
