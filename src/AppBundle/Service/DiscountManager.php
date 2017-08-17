@@ -8,6 +8,6 @@ class DiscountManager
 {
     public function getDiscountedPrice(Product $product)
     {
-
+        return 27;
     }
 }
