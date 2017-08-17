@@ -15,10 +15,16 @@ class ProductController extends Controller
     {
         $pdo = $this->getPDO();
 
-        $results = $pdo->query('SELECT * FROM product');
+        $stmt = $pdo->prepare('SELECT * FROM product');
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $products = [];
+        foreach ($results as $row) {
+            $products[] = $this->hydrateProduct($row);
+        }
 
         return $this->render('product/index.html.twig', [
-            'products' => $results
+            'products' => $products
         ]);
     }
 
@@ -32,11 +38,7 @@ class ProductController extends Controller
         $stmt->execute(['id' => $id]);
         $row = $stmt->fetch();
 
-        $product = new Product();
-        $product->setId($row['id']);
-        $product->setName($row['name']);
-        $product->setPrice($row['price']);
-        $product->setDescription($row['description']);
+        $product = $this->hydrateProduct($row);
 
         return $this->render('product/show.html.twig', [
             'product' => $product
@@ -52,5 +54,16 @@ class ProductController extends Controller
         $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
         return $pdo;
+    }
+
+    private function hydrateProduct(array $row)
+    {
+        $product = new Product();
+        $product->setId($row['id']);
+        $product->setName($row['name']);
+        $product->setPrice($row['price']);
+        $product->setDescription($row['description']);
+
+        return $product;
     }
 }
