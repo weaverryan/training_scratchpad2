@@ -18,6 +18,9 @@ class ProductRepository
             $products[] = $this->hydrateProduct($row);
         }
 
+        $this->container->get('logger')
+            ->debug(sprintf('Found %d products', count($products)));
+
         return $products;
     }
 
