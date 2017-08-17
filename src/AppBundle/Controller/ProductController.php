@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Model\Product;
+use AppBundle\Service\ProductRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -13,15 +14,8 @@ class ProductController extends Controller
      */
     public function indexAction()
     {
-        $pdo = $this->getPDO();
-
-        $stmt = $pdo->prepare('SELECT * FROM product');
-        $stmt->execute();
-        $results = $stmt->fetchAll();
-        $products = [];
-        foreach ($results as $row) {
-            $products[] = $this->hydrateProduct($row);
-        }
+        $productRepo = new ProductRepository();
+        $products = $productRepo->findAll();
 
         return $this->render('product/index.html.twig', [
             'products' => $products
